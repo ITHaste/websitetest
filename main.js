@@ -16,5 +16,6 @@ DisplayInput.textContent = Input.value;
 
 localStorage.setItem('SavedText', Input.value);
 
+
 Input.value = '';
   }
