@@ -23,24 +23,42 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const analytics = getAnalytics(app);
 
+let chatList = [];
+
 onValue(ref(db, 'SavedText'), function(snapshot) {
   const DisplayInput = document.getElementById('DisplayInput');
   const SavedText = snapshot.val();
   
-  if (SavedText && DisplayInput) {
-    DisplayInput.textContent = SavedText;
+  if (DisplayInput) {
+    // Safeguard: ONLY accept SavedText if it is a real array. 
+    // If it's a plain string or empty, default to a clean list []
+    if (Array.isArray(SavedText)) {
+      chatList = SavedText;
+    } else {
+      chatList = [];
+    }
+    
+    // Now this is 100% safe from crashing!
+    DisplayInput.innerHTML = chatList.join('<br>');
   }
-});  
-
+});
 
 
 function MoveText() {
 const Input = document.getElementById('UserInput');
 const DisplayInput = document.getElementById('DisplayInput');
     
-DisplayInput.textContent = Input.value;
+//DisplayInput.textContent = Input.value;
 
-set(ref(db, 'SavedText'), Input.value);
+chatList.push(Input.value);
+
+if (chatList.length > 5) {
+  chatList.shift();
+}
+  console.log(chatList);
+  
+
+set(ref(db, 'SavedText'), chatList);
 
 
 Input.value = '';
