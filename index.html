@@ -14,13 +14,16 @@
 </head>
 
 <body>
-  <p>Write a message!</p>
-  <input type="text" id="UserInput" placeholder="Write the message here!">
   
-  <p>Message will appear here!</p>
-  <h6 id="DisplayInput"></h6>
   
-  <button onclick="MoveText()">Move Text</button>
+  
+  <div id="chatbox">
+    <h6 id="DisplayInput"></h6>
+  </div>
+  <div class="Input-Box">
+    <input type="text" id="UserInput" placeholder="Write the message here!">
+    <button id="send" onclick="MoveText()">Send</button>
+  </div>
   <!-- Project -->
   <script type="module" src="main.js"></script>
 </body>

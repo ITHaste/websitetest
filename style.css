@@ -1,3 +1,27 @@
 body {
     font-size: 15pt;
 }
+
+#chatbox {
+    border: 1px solid;
+    margin-bottom: 0px;
+    width: 350px;
+}
+
+#DisplayInput {
+    margin: 0px;
+}
+
+#UserInput {
+    margin: 0px;
+    box-sizing: border-box; /* Ensures borders don't alter the height */
+}
+
+#send {
+    margin: 0px;
+}
+
+.Input-Box {
+    display: flex;
+    width: 100%;
+}
