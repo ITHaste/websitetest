@@ -28,6 +28,7 @@ let chatList = [];
 onValue(ref(db, 'SavedText'), function(snapshot) {
   const DisplayInput = document.getElementById('DisplayInput');
   const SavedText = snapshot.val();
+
   
   if (DisplayInput) {
     // Safeguard: ONLY accept SavedText if it is a real array. 
@@ -47,10 +48,12 @@ onValue(ref(db, 'SavedText'), function(snapshot) {
 function MoveText() {
 const Input = document.getElementById('UserInput');
 const DisplayInput = document.getElementById('DisplayInput');
+const User = localStorage.getItem('Username')
+const UserChat = `${User}: ${Input.value}`;
     
 //DisplayInput.textContent = Input.value;
 
-chatList.push(Input.value);
+chatList.push(UserChat);
 
 if (chatList.length > 5) {
   chatList.shift();
