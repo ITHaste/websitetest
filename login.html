@@ -5,11 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Message App</title>
+  
+  <link rel="stylesheet" href="login.css">
+  
 </head>
 
 <body>
-  <div>
-    <input id="UserID" type="text" placeholder="Username" onkeydown="if(event.key === 'Enter') LogIn()">
+  <div class="LogIn">
+    <input id="UserID" type="text" placeholder="Username" onkeydown="if(event.key === 'Enter') LogIn()" required>
     <button type="button" onclick="LogIn()">Sign in</button>
   </div>
   
