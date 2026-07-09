@@ -2,11 +2,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAJahKgep2Zb1upxRaKMSRq8sL-7IL4F_E",
   authDomain: "websitetest-3866f.firebaseapp.com",
@@ -25,22 +22,32 @@ const analytics = getAnalytics(app);
 
 let chatList = [];
 
+// --- FIREBASE REALTIME LISTENER ---
 onValue(ref(db, 'SavedText'), function(snapshot) {
   const DisplayInput = document.getElementById('DisplayInput');
   const SavedText = snapshot.val();
-
   
   if (DisplayInput) {
-    // Safeguard: ONLY accept SavedText if it is a real array. 
-    // If it's a plain string or empty, default to a clean list []
     if (Array.isArray(SavedText)) {
       chatList = SavedText;
     } else {
       chatList = [];
     }
     
-    // Now this is 100% safe from crashing!
-    DisplayInput.innerHTML = chatList.join('<br>');
+    // 1. Join your array items with line breaks like you did before
+    let chatHtml = chatList.join('<br>');
+    
+    // 2. Fetch the logged-in user's name from localStorage
+    const loggedInUser = localStorage.getItem('Username');
+    
+    // 3. Check if the name exists and if it shows up anywhere in the chat text
+    if (loggedInUser && chatHtml.includes(loggedInUser)) {
+      // We use .replaceAll() so it highlights every single mention, using backticks ``
+      chatHtml = chatHtml.replaceAll(loggedInUser, `<span class="YourUser">${loggedInUser}</span>`);
+    }
+    
+    // 4. Push the final formatted HTML string to your container
+    DisplayInput.innerHTML = chatHtml;
   }
   
   const chatbox = document.getElementById('chatbox');
@@ -48,35 +55,37 @@ onValue(ref(db, 'SavedText'), function(snapshot) {
 });
 
 
+// --- SEND MESSAGE FUNCTION ---
 function MoveText() {
-const Input = document.getElementById('UserInput');
-const DisplayInput = document.getElementById('DisplayInput');
-const User = localStorage.getItem('Username')
-const UserChat = `${User}: ${Input.value}`;
-
-if (Input.value.trim() === "") {
+  const Input = document.getElementById('UserInput');
+  const User = localStorage.getItem('Username');
   
-}
-
-chatList.push(UserChat);
-
-if (chatList.length > 5) {
-  chatList.shift();
-}
-  console.log(chatList);
-  
-
-set(ref(db, 'SavedText'), chatList);
-
-
-Input.value = '';
+  // Quick Fix: Stop the function entirely if the input is empty or just spaces
+  if (Input.value.trim() === "") {
+    return;
   }
   
+  const UserChat = `${User}: ${Input.value}`;
+  
+  chatList.push(UserChat);
+  
+  if (chatList.length > 5) {
+    chatList.shift();
+  }
+  
+  console.log(chatList);
+  set(ref(db, 'SavedText'), chatList);
+  
+  Input.value = '';
+}
+
+// --- SIGN OUT FUNCTION ---
 function SignOut() {
   localStorage.removeItem('Username');
   location.reload();
   console.log("Username removed.");
-}  
+}
 
+// Global Window bindings so your HTML buttons can still find the functions
 window.MoveText = MoveText;
 window.SignOut = SignOut;
