@@ -1,11 +1,18 @@
 body {
-    font-size: 15pt;
+    font-size: 12pt;
 }
 
 #chatbox {
     border: 1px solid;
     margin-bottom: 0px;
-    width: 217px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chat-container {
+    width: 60vw;
+    max-width: 250px;
+    margin: 0 auto;
 }
 
 #DisplayInput {
@@ -13,17 +20,20 @@ body {
 }
 
 #UserInput {
+    width: 80%;
     margin: 0px;
     box-sizing: border-box; /* Ensures borders don't alter the height */
 }
 
 #send {
+    width: 20%;
     margin: 0px;
 }
 
 .Input-Box {
     display: flex;
     width: 100%;
+    box-sizing: border-box;
 }
 
 #SignOut {

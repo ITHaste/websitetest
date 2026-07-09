@@ -18,15 +18,16 @@
 <body>
   
   
-  
+<div class="chat-container">  
   <div id="chatbox">
-    <h6 id="DisplayInput"></h6>
+    <p id="DisplayInput"></p>
   </div>
   <form class="Input-Box" onsubmit="event.preventDefault(); MoveText();">
     <input type="text" id="UserInput" placeholder="Write the message here!">
     <button id="send">Send</button>
   </form>
-  
+</div>
+
   <button id="SignOut" onclick="SignOut()">Sign out</button>
   <!-- Project -->
   <script type="module" src="main.js"></script>
