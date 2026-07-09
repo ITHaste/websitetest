@@ -25,3 +25,9 @@ body {
     display: flex;
     width: 100%;
 }
+
+#SignOut {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+}

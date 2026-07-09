@@ -22,10 +22,12 @@
   <div id="chatbox">
     <h6 id="DisplayInput"></h6>
   </div>
-  <form class="Input-Box">
+  <form class="Input-Box" onsubmit="event.preventDefault(); MoveText();">
     <input type="text" id="UserInput" placeholder="Write the message here!">
-    <button id="send" onclick="MoveText()">Send</button>
+    <button id="send">Send</button>
   </form>
+  
+  <button id="SignOut" onclick="SignOut()">Sign out</button>
   <!-- Project -->
   <script type="module" src="main.js"></script>
 </body>

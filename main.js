@@ -50,8 +50,10 @@ const Input = document.getElementById('UserInput');
 const DisplayInput = document.getElementById('DisplayInput');
 const User = localStorage.getItem('Username')
 const UserChat = `${User}: ${Input.value}`;
-    
-//DisplayInput.textContent = Input.value;
+
+if (Input.value.trim() === "") {
+  return;
+}
 
 chatList.push(UserChat);
 
@@ -67,4 +69,11 @@ set(ref(db, 'SavedText'), chatList);
 Input.value = '';
   }
   
+function SignOut() {
+  localStorage.removeItem('Username');
+  location.reload();
+  console.log("Username removed.");
+}  
+
 window.MoveText = MoveText;
+window.SignOut = SignOut;
