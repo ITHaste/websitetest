@@ -42,6 +42,9 @@ onValue(ref(db, 'SavedText'), function(snapshot) {
     // Now this is 100% safe from crashing!
     DisplayInput.innerHTML = chatList.join('<br>');
   }
+  
+  const chatbox = document.getElementById('chatbox');
+  chatbox.scrollTop = chatbox.scrollHeight;
 });
 
 
@@ -52,7 +55,7 @@ const User = localStorage.getItem('Username')
 const UserChat = `${User}: ${Input.value}`;
 
 if (Input.value.trim() === "") {
-  return;
+  
 }
 
 chatList.push(UserChat);

@@ -6,7 +6,9 @@ body {
     border: 1px solid;
     margin-bottom: 0px;
     width: 100%;
+    height: 112px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .chat-container {
